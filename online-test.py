@@ -4,8 +4,8 @@ import json
 from time import sleep
 
 cookies = {
-    "csrftoken": config("CSRF-TOKEN"),
-    "LEETCODE_SESSION": config("JWT-TOKEN"),
+    "csrftoken": config("CSRF_TOKEN"),
+    "LEETCODE_SESSION": config("JWT_TOKEN"),
 }
 
 headers = {
@@ -31,7 +31,7 @@ headers = {
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",
     "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-    "x-csrftoken": config("CSRF-TOKEN"),
+    "x-csrftoken": config("CSRF_TOKEN"),
 }
 
 with open("online-input.txt") as file:
@@ -41,7 +41,7 @@ with open("source.py") as file:
 
 json_data = {
     "lang": "python3",
-    "question_id": config("QUESTION-ID"),
+    "question_id": config("QUESTION_ID"),
     "typed_code": typed_code,
     "data_input": data_input,
 }
@@ -67,8 +67,10 @@ while flag:
     data = json.loads(response.text)
     if data["state"] == "SUCCESS":
         flag = False
-
+print(data)
 for x, y, z in zip(test_case, data["code_answer"], data["expected_code_answer"]):
+    if y == "" and z == "":
+        continue
     if y == z:
         print(f"✅ {x} => ({y} == {z})")
     else:
