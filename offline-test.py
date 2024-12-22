@@ -3,7 +3,7 @@ import json
 
 inputs = []
 outputs = []
-name = "canPlaceFlowers"
+method_name = [attr for attr in dir(Solution) if not attr.startswith("__")][0]
 
 with open("offline-input.txt") as file:
     data = file.read()
@@ -21,7 +21,7 @@ with open("offline-input.txt") as file:
             value = line.split(":")[1]
             outputs.append(json.loads(value))
 for inp, out in zip(inputs, outputs):
-    method = getattr(Solution(), name)
+    method = getattr(Solution(), method_name)
     original_inp = json.loads(json.dumps(inp))
     result = method(*inp)
     if result == out:

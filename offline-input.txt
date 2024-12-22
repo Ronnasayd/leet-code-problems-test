@@ -1,22 +1,23 @@
 
-Input: flowerbed = [1,0,0,0,1];n = 1
-Output: true
+Example 1:
 
-Input: flowerbed = [1,0,0,0,1];n = 2
-Output: false
+Input: s = "IceCreAm"
 
-input: flowerbed =[1,0,0,0,0,1];n =2
-Output: false
+Output: "AceCreIm"
 
-input: flowerbed =[0,0,1,0,1];n =1
-Output: true
+Explanation:
 
-input: flowerbed =[1,0,0,0,1,0,0];n =2
-Output: true
+The vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes "AceCreIm".
 
-input :flowerbed =[0,0,1,0,0];n=1
-Output: true
+Example 2:
 
-input:[0,0,0,0,1];2
-Output: true
+Input: s = "leetcode"
 
+Output: "leotcede"
+
+
+
+Constraints:
+
+1 <= s.length <= 3 * 105
+s consist of printable ASCII characters.
