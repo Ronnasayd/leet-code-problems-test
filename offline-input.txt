@@ -1,4 +1,22 @@
-Input: head = [1,2,3,4,5]
-Output: [3,4,5]
-Input: head = [1,2,3,4,5,6]
-Output: [4,5,6]
+
+Input: flowerbed = [1,0,0,0,1];n = 1
+Output: true
+
+Input: flowerbed = [1,0,0,0,1];n = 2
+Output: false
+
+input: flowerbed =[1,0,0,0,0,1];n =2
+Output: false
+
+input: flowerbed =[0,0,1,0,1];n =1
+Output: true
+
+input: flowerbed =[1,0,0,0,1,0,0];n =2
+Output: true
+
+input :flowerbed =[0,0,1,0,0];n=1
+Output: true
+
+input:[0,0,0,0,1];2
+Output: true
+

@@ -51,8 +51,8 @@ response = requests.post(
     cookies=cookies,
     headers=headers,
     json=json_data,
+    allow_redirects=True,
 )
-
 data = json.loads(response.text)
 test_case = data["test_case"].split("\n")
 interpret_id = data["interpret_id"]
@@ -63,11 +63,11 @@ while flag:
         f"https://leetcode.com/submissions/detail/{interpret_id}/check/",
         cookies=cookies,
         headers=headers,
+        allow_redirects=True,
     )
     data = json.loads(response.text)
     if data["state"] == "SUCCESS":
         flag = False
-print(data)
 for x, y, z in zip(test_case, data["code_answer"], data["expected_code_answer"]):
     if y == "" and z == "":
         continue
