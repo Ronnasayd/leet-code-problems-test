@@ -22,7 +22,9 @@ with open("offline-input.txt") as file:
             outputs.append(json.loads(value))
 for inp, out in zip(inputs, outputs):
     method = getattr(Solution(), method_name)
-    original_inp = json.loads(json.dumps(inp))
+    original_inp = str(json.loads(json.dumps(inp)))
+    if len(original_inp) > 60:
+        original_inp = original_inp[:60] + "..."
     result = method(*inp)
     if result == out:
         print(f"✅ Input: {original_inp} => ({out}  ==  {result})")
