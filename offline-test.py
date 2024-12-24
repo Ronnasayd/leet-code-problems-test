@@ -1,5 +1,6 @@
 from source import Solution
 import json
+from time import time
 
 inputs = []
 outputs = []
@@ -20,13 +21,24 @@ with open("offline-input.txt") as file:
         if "output" in line.lower() and not line.startswith("#"):
             value = line.split(":")[1]
             outputs.append(json.loads(value))
+total_time = 0
 for inp, out in zip(inputs, outputs):
     method = getattr(Solution(), method_name)
     original_inp = str(json.loads(json.dumps(inp)))
     if len(original_inp) > 60:
         original_inp = original_inp[:60] + "..."
+    initial_time = time()
     result = method(*inp)
+    time_to_process = time() - initial_time
+    total_time += time_to_process
+    if time_to_process > 10:
+        print(f"❌ (Time limit exceded)", end=" ")
     if result == out:
-        print(f"✅ Input: {original_inp} => ({out}  ==  {result})")
+        print(
+            f"✅ Input: {original_inp} => ({out}  ==  {result}) / {time_to_process*1000:.5f} ms"
+        )
     else:
-        print(f"❌ Input: {original_inp} => ({out} !=  {result})")
+        print(
+            f"❌ Input: {original_inp} => ({out} !=  {result}) / {time_to_process*1000:.5f} ms"
+        )
+print(f"Total time: {total_time*1000:.5f} ms")
