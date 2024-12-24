@@ -35,10 +35,10 @@ for inp, out in zip(inputs, outputs):
         print(f"❌ (Time limit exceded)", end=" ")
     if result == out:
         print(
-            f"✅ Input: {original_inp} => ({out}  ==  {result}) / {time_to_process*1000:.5f} ms"
+            f"✅ Input: {original_inp} => ({out}  ==  {result}) | {time_to_process*1000:.5f} ms"
         )
     else:
         print(
-            f"❌ Input: {original_inp} => ({out} !=  {result}) / {time_to_process*1000:.5f} ms"
+            f"❌ Input: {original_inp} => ({out} !=  {result}) | {time_to_process*1000:.5f} ms"
         )
-print(f"Total time: {total_time*1000:.5f} ms")
+print(f"⌛ Total time: {total_time*1000:.5f} ms")
