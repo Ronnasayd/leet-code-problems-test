@@ -68,6 +68,12 @@ while flag:
     data = json.loads(response.text)
     if data["state"] == "SUCCESS":
         flag = False
+
+stdout = [line for line in data["std_output_list"] if line != ""]
+if len(stdout):
+    print("Stdout:")
+for line in stdout:
+    print(line)
 for x, y, z in zip(test_case, data["code_answer"], data["expected_code_answer"]):
     if y == "" and z == "":
         continue
