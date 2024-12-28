@@ -1,7 +1,7 @@
 from source import Solution
 import json
 from time import time
-import tracemalloc
+import os, psutil
 
 inputs = []
 outputs = []
@@ -23,7 +23,7 @@ with open("offline-input.txt") as file:
             value = line.split(":")[1]
             outputs.append(json.loads(value))
 total_time = 0
-tracemalloc.start()
+total_memory = 0
 for inp, out in zip(inputs, outputs):
     method = getattr(Solution(), method_name)
     original_inp = str(json.loads(json.dumps(inp)))
@@ -43,7 +43,6 @@ for inp, out in zip(inputs, outputs):
         print(
             f"❌ Input: {original_inp} => ({out} !=  {result}) | {time_to_process*1000:.5f} ms"
         )
-_, memory = tracemalloc.get_traced_memory()
-tracemalloc.stop()
+total_memory = psutil.Process(os.getpid()).memory_info().rss / 1024**2
 print(f"⌛ Total time: {total_time*1000:.5f} ms")
-print(f"⌛ Memory usage: {memory:.5f} B")
+print(f"⌛ Memory usage: {total_memory} MB")
