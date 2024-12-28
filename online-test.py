@@ -68,7 +68,9 @@ while flag:
     data = json.loads(response.text)
     if data["state"] == "SUCCESS":
         flag = False
-
+if "runtime_error" in data:
+    print(f'❌ {data["runtime_error"]}')
+    exit(1)
 stdout = [line for line in data["std_output_list"] if line != ""]
 if len(stdout):
     print("Stdout:")
@@ -81,3 +83,8 @@ for x, y, z in zip(test_case, data["expected_code_answer"], data["code_answer"])
         print(f"✅ {x} => ({y} == {z})")
     else:
         print(f"❌ {x} => ({y} != {z})")
+
+if "status_runtime" in data:
+    print(f"⌛ Total time: {data['status_runtime']}")
+if "status_memory" in data:
+    print(f"💾 Memory usage: {data['status_memory']}")
