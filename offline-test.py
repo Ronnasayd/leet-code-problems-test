@@ -45,4 +45,4 @@ for inp, out in zip(inputs, outputs):
         )
 total_memory = psutil.Process(os.getpid()).memory_info().rss / 1024**2
 print(f"⌛ Total time: {total_time*1000:.5f} ms")
-print(f"⌛ Memory usage: {total_memory} MB")
+print(f"💾 Memory usage: {total_memory} MB")
