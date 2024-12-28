@@ -74,7 +74,7 @@ if len(stdout):
     print("Stdout:")
 for line in stdout:
     print(line)
-for x, y, z in zip(test_case, data["code_answer"], data["expected_code_answer"]):
+for x, y, z in zip(test_case, data["expected_code_answer"], data["code_answer"]):
     if y == "" and z == "":
         continue
     if y == z:

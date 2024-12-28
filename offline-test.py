@@ -1,6 +1,7 @@
 from source import Solution
 import json
 from time import time
+import tracemalloc
 
 inputs = []
 outputs = []
@@ -22,6 +23,7 @@ with open("offline-input.txt") as file:
             value = line.split(":")[1]
             outputs.append(json.loads(value))
 total_time = 0
+tracemalloc.start()
 for inp, out in zip(inputs, outputs):
     method = getattr(Solution(), method_name)
     original_inp = str(json.loads(json.dumps(inp)))
@@ -41,4 +43,7 @@ for inp, out in zip(inputs, outputs):
         print(
             f"❌ Input: {original_inp} => ({out} !=  {result}) | {time_to_process*1000:.5f} ms"
         )
+_, memory = tracemalloc.get_traced_memory()
+tracemalloc.stop()
 print(f"⌛ Total time: {total_time*1000:.5f} ms")
+print(f"⌛ Memory usage: {memory:.5f} B")
