@@ -9,7 +9,7 @@ outputs = []
 method_name = [attr for attr in dir(Solution) if not attr.startswith("__")][0]
 
 
-process_input = [[list2tree, TreeNode]]
+process_input = [[0, list2tree, TreeNode]]
 process_output = []
 
 with open("offline-input.txt") as file:
@@ -37,8 +37,8 @@ for inp, out in zip(inputs, outputs):
     initial_time = time()
     if process_input:
         for process in process_input:
-            inp = process[0](*inp, *process[1:])
-        result = method(inp)
+            inp[process[0]] = process[1](inp[process[0]], *process[2:])
+        result = method(*inp)
         if process_output:
             for process in process_output:
                 result = process[0](result, *process[1:])
