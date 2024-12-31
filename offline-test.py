@@ -1,11 +1,16 @@
-from source import Solution
+from source import *
 import json
 from time import time
 import os, psutil
+from utils import *
 
 inputs = []
 outputs = []
 method_name = [attr for attr in dir(Solution) if not attr.startswith("__")][0]
+
+
+process_input = [[list2tree, TreeNode]]
+process_output = []
 
 with open("offline-input.txt") as file:
     data = file.read()
@@ -30,7 +35,15 @@ for inp, out in zip(inputs, outputs):
     if len(original_inp) > 60:
         original_inp = original_inp[:60] + "..."
     initial_time = time()
-    result = method(*inp)
+    if process_input:
+        for process in process_input:
+            inp = process[0](*inp, *process[1:])
+        result = method(inp)
+        if process_output:
+            for process in process_output:
+                result = process[0](result, *process[1:])
+    else:
+        result = method(*inp)
     time_to_process = time() - initial_time
     total_time += time_to_process
     if time_to_process > 10:
