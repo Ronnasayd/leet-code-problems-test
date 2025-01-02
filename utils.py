@@ -53,7 +53,7 @@ def list2tree(arr: List, class_: any):
     if arr:
         root = insert(None, arr[0])
     else:
-        return class_()
+        return None
     for i in range(1, len(arr), 1):
         insert(root, arr[i])
     root = adjustNull(root)
