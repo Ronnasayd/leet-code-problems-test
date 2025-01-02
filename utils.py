@@ -20,6 +20,16 @@ def tree2list(root: any) -> List:
 
 
 def list2tree(arr: List, class_: any):
+    def adjustNull(root):
+        if root.val is None:
+            root = None
+            return root
+        if root.left:
+            root.left = adjustNull(root.left)
+        if root.right:
+            root.right = adjustNull(root.right)
+        return root
+
     def insert(root, val):
         new_node = class_(val=val)
         if not root:
@@ -27,20 +37,25 @@ def list2tree(arr: List, class_: any):
         queue = deque([root])
         while queue:
             current = queue.popleft()
-            if current.val and not current.left:
-                current.left = new_node
-                return root
-            else:
-                queue.append(current.left)
-            if current.val and not current.right:
-                current.right = new_node
-                return root
-            else:
-                queue.append(current.right)
+            if current and current.val is not None:
+                if not current.left:
+                    current.left = new_node
+                    return root
+                else:
+                    queue.append(current.left)
+                if not current.right:
+                    current.right = new_node
+                    return root
+                else:
+                    queue.append(current.right)
 
-    root = insert(None, arr[0])
+    if arr:
+        root = insert(None, arr[0])
+    else:
+        return class_()
     for i in range(1, len(arr), 1):
         insert(root, arr[i])
+    root = adjustNull(root)
     return root
 
 
@@ -65,7 +80,7 @@ def ll2list(ll: any) -> List:
     return arr
 
 
-def display(root):
+def display_tree(root):
     lines, *_ = _display_aux(root)
     for line in lines:
         print(line)
@@ -118,6 +133,7 @@ def _display_aux(self):
 
 
 if __name__ == "__main__":
-    pass
-    # root = list2tree([10, 5, -3, 3, 2, None, 11, 3, -2, None, 1], TreeNode)
-    # display(root)
+    root = list2tree(
+        [1, None, 1, 1, 1, None, None, 1, 1, None, 1, None, None, None, 1], TreeNode
+    )
+    display_tree(root)
