@@ -1,8 +1,6 @@
 from typing import *
 from collections import deque
 
-from source import TreeNode
-
 
 def tree2list(root: any) -> List:
     arr = []
@@ -11,11 +9,14 @@ def tree2list(root: any) -> List:
     queue = deque([root])
     while queue:
         current = queue.popleft()
-        arr.append(current.val)
-        if current.left:
+        if current:
+            arr.append(current.val)
             queue.append(current.left)
-        if current.right:
             queue.append(current.right)
+        else:
+            arr.append(None)
+    while arr[-1] is None:
+        arr.pop(-1)
     return arr
 
 
@@ -31,7 +32,7 @@ def list2tree(arr: List, class_: any):
         return root
 
     def insert(root, val):
-        new_node = class_(val=val)
+        new_node = class_(val)
         if not root:
             return new_node
         queue = deque([root])
@@ -130,10 +131,3 @@ def _display_aux(self):
     zipped_lines = zip(left, right)
     lines = [first_line, second_line] + [a + u * " " + b for a, b in zipped_lines]
     return lines, n + m + u, max(p, q) + 2, n + u // 2
-
-
-if __name__ == "__main__":
-    root = list2tree(
-        [1, None, 1, 1, 1, None, None, 1, 1, None, 1, None, None, None, 1], TreeNode
-    )
-    display_tree(root)
