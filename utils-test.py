@@ -10,7 +10,7 @@ class TreeNode:
 
 
 if __name__ == "__main__":
-    arr = [3, 5, 1, 6, 2, 0, 8, None, None, 7, 4, None, 3, 2]
+    arr = [18, 2, 22, None, None, None, 63, None, 84, None, None]
     a = list2tree(arr, TreeNode)
     b = tree2list(a)
     display_tree(a)

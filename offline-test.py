@@ -8,9 +8,11 @@ inputs = []
 outputs = []
 method_name = [attr for attr in dir(Solution) if not attr.startswith("__")][0]
 
+process_input = []
+process_output = []
 
-process_input = [[[0], list2tree, TreeNode]]
-process_output = [[tree2list], [lambda x: [x[0]]]]
+# process_input = [[[0], list2tree, TreeNode]]
+# process_output = [[tree2list]]
 
 with open("offline-input.txt") as file:
     data = file.read()

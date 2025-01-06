@@ -54,7 +54,10 @@ response = requests.post(
     allow_redirects=True,
 )
 data = json.loads(response.text)
-test_case = data["test_case"].split("\n")
+if "error" in data:
+    print(f'❌ {data["error"]}')
+    exit(1)
+test_cases = data["test_case"].split("\n")
 interpret_id = data["interpret_id"]
 flag = True
 while flag:
@@ -73,10 +76,18 @@ if "runtime_error" in data:
     exit(1)
 stdout = [line for line in data["std_output_list"] if line != ""]
 if len(stdout):
-    print("Stdout:")
-for line in stdout:
-    print(line)
-for x, y, z in zip(test_case, data["expected_code_answer"], data["code_answer"]):
+    test_cases = zip(
+        test_cases, data["expected_code_answer"], data["code_answer"], stdout
+    )
+else:
+    test_cases = zip(test_cases, data["expected_code_answer"], data["code_answer"])
+for test_case in test_cases:
+    if len(stdout):
+        x, y, z, line = test_case
+        print("Stdout:")
+        print(line)
+    else:
+        x, y, z = test_case
     if y == "" and z == "":
         continue
     if y == z:
