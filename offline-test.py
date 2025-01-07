@@ -16,6 +16,7 @@ process_output = []
 
 with open("offline-input.txt") as file:
     data = file.read()
+    data = data.replace(", ", ";")
     lines = data.split("\n")
     for line in lines:
         if "input" in line.lower() and not line.startswith("#"):
