@@ -1,0 +1,3 @@
+<class 'list'>:['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']
+<class 'list'>:[]
+<class 'list'>:['a', 'b', 'c']

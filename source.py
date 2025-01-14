@@ -1,17 +1,13 @@
-from typing import List, Optional
+from typing import *
 
 
 class Solution:
-    def reverseVowels(self, s: str) -> str:
-        r = []
-        ss = []
-        for i in range(len(s)):
-            ss.append(s[i])
-            if s[i].lower() in ["a", "e", "i", "o", "u"]:
-                r.append(i)
-        r2 = reversed(r)
-        for i, j in zip(r[0 : len(r) // 2], r2):
-            aux = ss[i]
-            ss[i] = ss[j]
-            ss[j] = aux
-        return "".join(ss)
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        n = len(A)
+        f = n * [0]
+        answer = []
+        for a, b in zip(A, B):
+            f[a - 1] += 1
+            f[b - 1] += 1
+            answer.append(f.count(2))
+        return answer
