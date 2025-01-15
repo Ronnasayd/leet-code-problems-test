@@ -80,10 +80,10 @@ int main()
   while (!cin.eof())
   {
     getline(cin, line);
-    auto piles = stdinVector<int>(line);
+    auto num1 = stdinInt(line);
     getline(cin, line);
-    auto a = stdinInt(line);
-    auto answer = solution->minEatingSpeed(piles, a);
+    auto num2 = stdinInt(line);
+    auto answer = solution->minimizeXor(num1, num2);
     cout << answer << "\n";
   }
 

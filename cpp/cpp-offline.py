@@ -34,14 +34,20 @@ with open("inputs.txt", "w") as file:
             s += f'{str(i) + "\n"}'
     file.write(s[: len(s) - 1])
 with open("answers.txt", "w") as file:
+    s = ""
     for answer in answers:
-        file.write(f'{str(answer) + "\n"}')
-os.system("g++ -o main main.cpp")
+        s += f'{str(answer) + "\n"}'
+    file.write(s[: len(s) - 1])
+os.system("g++ -o main.exe main.cpp")
 initial_time = time()
-os.system("./main")
+os.system("./main.exe")
 time_to_process = time() - initial_time
+outputs = []
 with open("outputs.txt") as file:
-    outputs = file.read().split("\n")
+    values = file.read().split("\n")
+    for value in values:
+        if value:
+            outputs.append(json.loads(value))
 total_time = 0
 total_memory = 0
 for inp, out, ans in zip(inputs, outputs, answers):
