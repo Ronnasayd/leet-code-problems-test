@@ -8,28 +8,37 @@ using namespace std;
 #include "source.cpp"
 
 template <typename T>
-void stdoutVector(const vector<T> &v)
+void stdoutVector(const vector<T> &v, bool endline = false)
 {
+
   cout << "[";
+
   for (size_t i = 0; i < v.size(); ++i)
   {
+
     cout << v[i];
     if (i < v.size() - 1) // Check if it's not the last element
     {
       cout << ",";
     }
   }
-  cout << "]\n";
+  if (endline)
+  {
+    cout << "]\n";
+  }
+  else
+  {
+    cout << "]";
+  }
 }
 
 template <typename U>
-vector<U> stdinVector()
+vector<U> stdinVector(string line)
 {
   vector<U> v;
-  string line;
 
   // Read a whole line from standard input
-  if (getline(cin, line))
+  if (line != "")
   {
     // Remove leading and trailing spaces
     line.erase(remove_if(line.begin(), line.end(), ::isspace), line.end());
@@ -58,23 +67,24 @@ vector<U> stdinVector()
   return v;
 }
 
+int stdinInt(string line)
+{
+  return stoi(line);
+}
 int main()
 {
+  string line;
+  auto solution = new Solution();
   freopen("inputs.txt", "r", stdin);
   freopen("outputs.txt", "w", stdout);
-  auto solution = new Solution();
-  int a;
   while (!cin.eof())
   {
-    auto v = stdinVector<int>();
-    cin >> a;
-    // Check if the vector is empty; if it is, break the loop
-    if (v.empty())
-    {
-      break;
-    }
-    stdoutVector(v);
-    cout << a << "\n";
+    getline(cin, line);
+    auto piles = stdinVector<int>(line);
+    getline(cin, line);
+    auto a = stdinInt(line);
+    auto answer = solution->minEatingSpeed(piles, a);
+    cout << answer << "\n";
   }
 
   return 0;

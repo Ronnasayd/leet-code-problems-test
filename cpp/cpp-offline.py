@@ -3,7 +3,7 @@ from time import time
 import os, psutil
 
 inputs = []
-outputs = []
+answers = []
 
 process_input = []
 process_output = []
@@ -26,43 +26,40 @@ with open("../offline-input.txt") as file:
             inputs.append(v)
         if "output" in line.lower() and not line.startswith("#"):
             value = line.split(":")[1]
-            outputs.append(json.loads(value))
-with open("cpp-inputs.txt", "w") as file:
+            answers.append(json.loads(value))
+with open("inputs.txt", "w") as file:
+    s = ""
     for inp in inputs:
-        file.write(f'{type(inp[0])}:{str(inp[0]) + "\n"}')
-with open("cpp-outputs.txt", "w") as file:
-    for out in outputs:
-        file.write(f'{type(out)}:{str(out) + "\n"}')
-# total_time = 0
-# total_memory = 0
-# for inp, out in zip(inputs, outputs):
-#     method = getattr(Solution(), method_name)
-#     original_inp = str(json.loads(json.dumps(inp)))
-#     if len(original_inp) > 60:
-#         original_inp = original_inp[:60] + "..."
-#     initial_time = time()
-#     if process_input:
-#         for process in process_input:
-#             for index in process[0]:
-#                 inp[index] = process[1](inp[index], *process[2:])
-#         result = method(*inp)
-#         if process_output:
-#             for process in process_output:
-#                 result = process[0](result, *process[1:])
-#     else:
-#         result = method(*inp)
-#     time_to_process = time() - initial_time
-#     total_time += time_to_process
-#     if time_to_process > 10:
-#         print(f"❌ (Time limit exceded)", end=" ")
-#     if result == out:
-#         print(
-#             f"✅ Input: {original_inp} => ({out}  ==  {result}) | {time_to_process*1000:.5f} ms"
-#         )
-#     else:
-#         print(
-#             f"❌ Input: {original_inp} => ({out} !=  {result}) | {time_to_process*1000:.5f} ms"
-#         )
-# total_memory = psutil.Process(os.getpid()).memory_info().rss / 1024**2
-# print(f"⌛ Total time: {total_time*1000:.5f} ms")
-# print(f"💾 Memory usage: {total_memory} MB")
+        for i in inp:
+            s += f'{str(i) + "\n"}'
+    file.write(s[: len(s) - 1])
+with open("answers.txt", "w") as file:
+    for answer in answers:
+        file.write(f'{str(answer) + "\n"}')
+os.system("g++ -o main main.cpp")
+initial_time = time()
+os.system("./main")
+time_to_process = time() - initial_time
+with open("outputs.txt") as file:
+    outputs = file.read().split("\n")
+total_time = 0
+total_memory = 0
+for inp, out, ans in zip(inputs, outputs, answers):
+    original_inp = str(json.loads(json.dumps(inp)))
+    if len(original_inp) > 60:
+        original_inp = original_inp[:60] + "..."
+
+    total_time += time_to_process
+    if time_to_process > 10:
+        print(f"❌ (Time limit exceded)", end=" ")
+    if ans == out:
+        print(
+            f"✅ Input: {original_inp} => ({out}  ==  {ans}) | {time_to_process*1000:.5f} ms"
+        )
+    else:
+        print(
+            f"❌ Input: {original_inp} => ({out} !=  {ans}) | {time_to_process*1000:.5f} ms"
+        )
+total_memory = psutil.Process(os.getpid()).memory_info().rss / 1024**2
+print(f"⌛ Total time: {total_time*1000:.5f} ms")
+print(f"💾 Memory usage: {total_memory} MB")

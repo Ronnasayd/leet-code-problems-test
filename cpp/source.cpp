@@ -1,6 +1,8 @@
-class Solution {
+class Solution
+{
 public:
-    int rob(vector<int>& nums) {
-        return 0;
-    }
+  int minEatingSpeed(vector<int> &piles, int h)
+  {
+    return 12;
+  }
 };
