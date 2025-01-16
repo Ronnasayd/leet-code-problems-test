@@ -1,3 +1,6 @@
+#ifndef MY_STD_UTILS
+#define MY_STD_UTILS
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -70,3 +73,4 @@ int stdinInt(string line)
 {
   return stoi(line);
 }
+#endif

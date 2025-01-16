@@ -38,7 +38,7 @@ with open("answers.txt", "w") as file:
     for answer in answers:
         s += f'{str(answer) + "\n"}'
     file.write(s[: len(s) - 1])
-os.system("g++ -o main.exe main.cpp")
+os.system("g++ -std=c++23 -o main.exe main.cpp")
 
 initial_time = time()
 os.system("./main.exe")
