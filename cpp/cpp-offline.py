@@ -39,32 +39,32 @@ with open("answers.txt", "w") as file:
         s += f'{str(answer) + "\n"}'
     file.write(s[: len(s) - 1])
 os.system("g++ -o main.exe main.cpp")
+
 initial_time = time()
 os.system("./main.exe")
-time_to_process = time() - initial_time
+total_time = time() - initial_time
+
 outputs = []
 with open("outputs.txt") as file:
     values = file.read().split("\n")
     for value in values:
         if value:
             outputs.append(json.loads(value))
-total_time = 0
 total_memory = 0
 for inp, out, ans in zip(inputs, outputs, answers):
     original_inp = str(json.loads(json.dumps(inp)))
     if len(original_inp) > 60:
         original_inp = original_inp[:60] + "..."
 
-    total_time += time_to_process
-    if time_to_process > 10:
+    if total_time > 10:
         print(f"❌ (Time limit exceded)", end=" ")
     if ans == out:
         print(
-            f"✅ Input: {original_inp} => ({out}  ==  {ans}) | {time_to_process*1000:.5f} ms"
+            f"✅ Input: {original_inp} => ({out}  ==  {ans}) | {total_time*1000:.5f} ms"
         )
     else:
         print(
-            f"❌ Input: {original_inp} => ({out} !=  {ans}) | {time_to_process*1000:.5f} ms"
+            f"❌ Input: {original_inp} => ({out} !=  {ans}) | {total_time*1000:.5f} ms"
         )
 total_memory = psutil.Process(os.getpid()).memory_info().rss / 1024**2
 print(f"⌛ Total time: {total_time*1000:.5f} ms")
