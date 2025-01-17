@@ -1,20 +1,22 @@
-
-
-
-Input: n = 1
-Output: 1
-
-Input: n = 2
-Output: 2
-
-Input: n = 3
-Output: 5
-
-Input: n = 4
-Output: 11
-
-input:5
-output:24
-
-input:6
-output:53
+Input:[1,1,0]
+Output:true
+Input:[1,1]
+Output:true
+Input:[1,0]
+Output:false
+Input:[0]
+Output:true
+Input:[1]
+Output:false
+Input:[1,1]
+Output:true
+Input:[0,0]
+Output:true
+Input:[0,0,1]
+Output:false
+Input:[1,1,1]
+Output:false
+Input:[0,1,0,1]
+Output:true
+Input:[0,0,1,1]
+Output:true
