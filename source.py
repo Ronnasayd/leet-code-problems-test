@@ -2,5 +2,5 @@ from typing import *
 
 
 class Solution:
-    def doesValidArrayExist(self, derived: List[int]) -> bool:
-        return True
+    def uniquePaths(self, m: int, n: int) -> int:
+        return 1

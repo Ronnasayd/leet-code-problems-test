@@ -11,9 +11,16 @@ int main()
   while (!cin.eof())
   {
     getline(cin, line);
-    auto n = stdinInt(line);
-    auto answer = solution->numTilings(n);
-    cout << answer << "\n";
+    auto n = stdinVector<int>(line);
+    auto answer = solution->doesValidArrayExist(n);
+    if (answer)
+    {
+      cout << "true" << "\n";
+    }
+    else
+    {
+      cout << "false" << "\n";
+    }
   }
 
   return 0;

@@ -2,6 +2,7 @@ import requests
 from decouple import config
 import json
 from time import sleep
+from pprint import pprint
 
 cookies = {
     "csrftoken": config("CSRF_TOKEN"),
@@ -36,6 +37,7 @@ headers = {
 
 with open("online-input.txt") as file:
     data_input = file.read()
+    data_input = data_input[: len(data_input) - 1]
 with open("source.py") as file:
     typed_code = file.read()
 
@@ -71,9 +73,16 @@ while flag:
     data = json.loads(response.text)
     if data["state"] == "SUCCESS":
         flag = False
+
 if "runtime_error" in data:
     print(f'❌ {data["runtime_error"]}')
     exit(1)
+total_testcases = int(data["total_testcases"])
+step = len(test_cases) // total_testcases
+aux = []
+for i in range(0, len(test_cases), step):
+    aux.append(test_cases[i : i + step])
+test_cases = aux
 stdout = [line for line in data["std_output_list"] if line != ""]
 if len(stdout):
     test_cases = zip(
@@ -90,5 +99,5 @@ for test_case in test_cases:
         x, y, z = test_case
     if y == "" and z == "":
         continue
-    print(f"Input:{x}")
+    print(f"Input:{';'.join(x)}")
     print(f"Output:{y}")
