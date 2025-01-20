@@ -2,5 +2,5 @@ from typing import *
 
 
 class Solution:
-    def uniquePaths(self, m: int, n: int) -> int:
-        return 1
+    def minDistance(self, word1: str, word2: str) -> int:
+        return 0

@@ -1,24 +1,12 @@
 #include <vector>
+#include <string>
+#include "my-std-utils.cpp"
 using namespace std;
 class Solution
 {
 public:
-  bool doesValidArrayExist(vector<int> &derived)
+  int firstCompleteIndex(vector<int> &arr, vector<vector<int>> &mat)
   {
-
-    int x = 0;
-    for (auto i : derived)
-    {
-      x ^= i;
-    }
-    if (x != 0)
-    {
-      return false;
-    }
-    // 1 ^ 1 = 0
-    // 0 ^ 0 = 0
-    // 1 ^ 0 = 1
-    // 0 ^ 1 = 1
-    return true;
+    return 0;
   }
 };

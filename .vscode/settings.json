@@ -16,7 +16,7 @@
     "optional": "cpp",
     "string_view": "cpp",
     "initializer_list": "cpp",
-    "type_traits": "cpp"
+    "type_traits": "cpp",
+    "bit": "cpp"
   },
-  "C_Cpp.errorSquiggles": "disabled"
 }

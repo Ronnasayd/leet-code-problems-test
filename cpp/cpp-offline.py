@@ -32,12 +32,12 @@ with open("inputs.txt", "w") as file:
     for inp in inputs:
         for i in inp:
             s += f'{str(i) + "\n"}'
-    file.write(s[: len(s) - 1])
+    file.write(s[: len(s) - 1].replace(" ", ""))
 with open("answers.txt", "w") as file:
     s = ""
     for answer in answers:
         s += f'{str(answer) + "\n"}'
-    file.write(s[: len(s) - 1])
+    file.write(s[: len(s) - 1].replace(" ", ""))
 os.system("g++ -std=c++23 -o main.exe main.cpp")
 
 initial_time = time()
@@ -60,11 +60,11 @@ for inp, out, ans in zip(inputs, outputs, answers):
         print(f"❌ (Time limit exceded)", end=" ")
     if ans == out:
         print(
-            f"✅ Input: {original_inp} => ({out}  ==  {ans}) | {total_time*1000:.5f} ms"
+            f"✅ Input: {original_inp} => ({ans}  ==  {out}) | {total_time*1000:.5f} ms"
         )
     else:
         print(
-            f"❌ Input: {original_inp} => ({out} !=  {ans}) | {total_time*1000:.5f} ms"
+            f"❌ Input: {original_inp} => ({ans} !=  {out}) | {total_time*1000:.5f} ms"
         )
 total_memory = psutil.Process(os.getpid()).memory_info().rss / 1024**2
 print(f"⌛ Total time: {total_time*1000:.5f} ms")
