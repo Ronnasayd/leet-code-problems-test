@@ -1,10 +1,2 @@
-"horse"
-"ros"
-"intention"
-"execution"
-"car"
-"house"
-"batman"
-"superman"
-"yellow"
-"red"
+["Trie","insert","search","search","startsWith","insert","search"]
+[[],["apple"],["apple"],["app"],["app"],["app"],["app"]]

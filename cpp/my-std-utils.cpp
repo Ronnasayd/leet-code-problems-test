@@ -10,8 +10,12 @@
 using namespace std;
 
 template <typename T>
-void stdoutVector(const vector<T> &v, bool endline = true)
+void stdoutVector(const vector<T> &v, bool endline = true, bool isLog = false)
 {
+  if (isLog)
+  {
+    cout << "[log]:";
+  }
 
   cout << "[";
 
@@ -97,8 +101,13 @@ int stdinInt(string line)
 {
   return stoi(line);
 }
-void stdoutInt(int value, bool endline = true)
+template <typename T>
+void stdoutRaw(T value, bool endline = true, bool isLog = false)
 {
+  if (isLog)
+  {
+    cout << "[log]:";
+  }
   cout << value;
   if (endline)
   {
@@ -123,8 +132,12 @@ vector<vector<T>> stdinMatrix(string line)
   return v;
 }
 
-void stdoutMatrix(vector<vector<int>> &mat, bool endline = true)
+void stdoutMatrix(vector<vector<int>> &mat, bool endline = true, bool isLog = false)
 {
+  if (isLog)
+  {
+    cout << "[log]:";
+  }
   cout << "[";
 
   for (size_t i = 0; i < mat.size(); ++i)
@@ -145,4 +158,5 @@ void stdoutMatrix(vector<vector<int>> &mat, bool endline = true)
     cout << "]";
   }
 }
+
 #endif

@@ -45,13 +45,23 @@ os.system("./main.exe")
 total_time = time() - initial_time
 
 outputs = []
+stdouts = []
 with open("outputs.txt") as file:
     values = file.read().split("\n")
+    stdout = ""
     for value in values:
-        if value:
+        if value and value.startswith("[log]:"):
+            stdout += value.replace("[log]:", "")
+        if value and not value.startswith("[log]:"):
             outputs.append(json.loads(value))
+            stdouts.append(stdout)
+            stdout = ""
 total_memory = 0
-for inp, out, ans in zip(inputs, outputs, answers):
+
+for inp, out, ans, std in zip(inputs, outputs, answers, stdouts):
+    if std:
+        print("Stdout:")
+        print(std)
     original_inp = str(json.loads(json.dumps(inp)))
     if len(original_inp) > 60:
         original_inp = original_inp[:60] + "..."
