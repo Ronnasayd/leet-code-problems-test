@@ -12,6 +12,8 @@ public:
   int eraseOverlapIntervals(vector<vector<int>> &intervals)
   {
     stdoutMatrix(intervals, true, true);
+    sort(intervals.begin(), intervals.end());
+    stdoutMatrix(intervals, true, true);
     return 0;
   }
 };
