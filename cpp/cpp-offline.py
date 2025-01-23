@@ -60,7 +60,7 @@ total_memory = 0
 
 for inp, out, ans, std in zip(inputs, outputs, answers, stdouts):
     if std:
-        print("Stdout:")
+        print("\nStdout:")
         print(std)
     original_inp = str(json.loads(json.dumps(inp)))
     if len(original_inp) > 60:
