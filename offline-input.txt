@@ -12,3 +12,11 @@ Only node 4 is a terminal node, and every path starting at node 4 leads to node 
 
 input:[[],[0,2,3,4],[3],[4],[]]
 output:[0,1,2,3,4]
+
+input:[[0,3,4],[0,2,3,4],[],[],[]]
+output:[2,3,4]
+
+input:[[],[2],[3,4],[4],[]]
+output:[0,1,2,3,4]
+
+

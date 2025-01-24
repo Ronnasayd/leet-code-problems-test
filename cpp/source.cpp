@@ -11,44 +11,42 @@ using namespace std;
 class Solution
 {
 public:
-  vector<int> eventualSafeNodes(vector<vector<int>> &graph)
+  std::vector<int> eventualSafeNodes(std::vector<std::vector<int>> &graph)
   {
     int n = graph.size();
-    vector<int> ans;
-    logAll(graph);
+    std::vector<int> ans;
+    std::vector<bool> onPath(n, false); // To detect cycles
+    std::vector<bool> safe(n, false);   // To mark safe nodes
 
-    for (size_t i = 0; i < n; i++)
+    auto dfs = [&](int node, auto &&dfs) -> bool
     {
-      deque<int> q;
-      vector<bool> visited(n, false);
-      bool getEnd = false;
-      q.push_back(i);
-      int current;
-      int counter = 0;
-      while (!q.empty())
+      if (safe[node])
+        return true; // Already determined safe
+      if (onPath[node])
+        return false; // Found a cycle
+
+      onPath[node] = true; // Mark the node as being visited in the current path
+      for (int neighbor : graph[node])
       {
-        current = q.back();
-        q.pop_back();
-        visited[current] = true;
-        counter++;
-        if (graph[current].size() == 0)
+        if (!dfs(neighbor, dfs)) // If any neighbor is not safe
         {
-          getEnd = true;
-        }
-        for (auto index : graph[current])
-        {
-          if (visited[index])
-            continue;
-          q.push_back(index);
+          return false; // Current node is not safe
         }
       }
-      if (getEnd && counter <= 2)
+      onPath[node] = false; // Backtrack
+      safe[node] = true;    // Mark as safe
+      return true;
+    };
+
+    for (int i = 0; i < n; i++)
+    {
+      if (dfs(i, dfs))
       {
-        ans.push_back(i);
+        ans.push_back(i); // If the node is safe, add to result
       }
-      sort(ans.begin(), ans.end());
     }
 
+    std::sort(ans.begin(), ans.end()); // Sort the result before returning
     return ans;
   }
 };
