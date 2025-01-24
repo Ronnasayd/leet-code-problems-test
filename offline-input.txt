@@ -9,3 +9,6 @@ Input: graph = [[1,2,3,4],[1,2],[3,4],[0,4],[]]
 Output: [4]
 Explanation:
 Only node 4 is a terminal node, and every path starting at node 4 leads to node 4.
+
+input:[[],[0,2,3,4],[3],[4],[]]
+output:[0,1,2,3,4]

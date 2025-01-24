@@ -15,6 +15,7 @@ public:
   {
     int n = graph.size();
     vector<int> ans;
+    logAll(graph);
 
     for (size_t i = 0; i < n; i++)
     {

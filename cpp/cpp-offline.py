@@ -51,7 +51,7 @@ with open("outputs.txt") as file:
     stdout = ""
     for value in values:
         if value and value.startswith("[log]:"):
-            stdout += value.replace("[log]:", "") + "\n"
+            stdout += value.replace("[log]:", ">> ") + "\n"
         if value and not value.startswith("[log]:"):
             outputs.append(json.loads(value))
             stdouts.append(stdout)
