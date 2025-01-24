@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>   // For std::istringstream
 #include <algorithm> // For std::remove_if
+#include <typeinfo>
 
 using namespace std;
 
@@ -157,6 +158,37 @@ void stdoutMatrix(vector<vector<int>> &mat, bool endline = true, bool isLog = fa
   {
     cout << "]";
   }
+}
+template <typename T>
+bool isVector(const T &)
+{
+  return std::is_same<T, std::vector<typename T::value_type, typename T::allocator_type>>::value;
+}
+
+void logAll()
+{
+  cout << "\n";
+}
+template <typename T, typename... Args>
+void logAll(T x, Args... args)
+{
+  if constexpr (is_same_v<T, vector<int>> || is_same_v<T, vector<bool>> || is_same_v<T, vector<string>>)
+  {
+    stdoutVector(x, false, true);
+  }
+  else
+  {
+    if constexpr (is_same_v<T, vector<vector<int>>> || is_same_v<T, vector<vector<bool>>> || is_same_v<T, vector<vector<string>>>)
+    {
+      stdoutMatrix(x, false, true);
+    }
+    else
+    {
+      stdoutRaw(x, false, true);
+    }
+  }
+
+  logAll(args...);
 }
 
 #endif

@@ -3,33 +3,51 @@
 #include <map>
 #include <tuple>
 #include <deque>
+#include <stack>
 #include "my-std-utils.cpp"
 
 using namespace std;
+
 class Solution
 {
 public:
-  int eraseOverlapIntervals(vector<vector<int>> &intervals)
+  vector<int> eventualSafeNodes(vector<vector<int>> &graph)
   {
-    int answer = 0;
-    int n = intervals.size();
-    sort(intervals.begin(), intervals.end(), [](const vector<int> &a, const vector<int> &b)
-         { return a[1] < b[1]; });
-    int ma = intervals[0][1];
+    int n = graph.size();
+    vector<int> ans;
 
-    for (size_t i = 1; i < n; i++)
+    for (size_t i = 0; i < n; i++)
     {
-      auto row = intervals[i];
-      if (row[0] < ma)
+      deque<int> q;
+      vector<bool> visited(n, false);
+      bool getEnd = false;
+      q.push_back(i);
+      int current;
+      int counter = 0;
+      while (!q.empty())
       {
-        answer += 1;
+        current = q.back();
+        q.pop_back();
+        visited[current] = true;
+        counter++;
+        if (graph[current].size() == 0)
+        {
+          getEnd = true;
+        }
+        for (auto index : graph[current])
+        {
+          if (visited[index])
+            continue;
+          q.push_back(index);
+        }
       }
-      else
+      if (getEnd && counter <= 2)
       {
-        ma = row[1];
+        ans.push_back(i);
       }
+      sort(ans.begin(), ans.end());
     }
 
-    return answer;
+    return ans;
   }
 };

@@ -11,9 +11,9 @@ int main()
   while (!cin.eof())
   {
     getline(cin, line);
-    auto intervals = stdinMatrix<int>(line);
-    auto answer = solution->eraseOverlapIntervals(intervals);
-    stdoutRaw(answer);
+    auto graph = stdinMatrix<int>(line);
+    auto answer = solution->eventualSafeNodes(graph);
+    stdoutVector(answer);
   }
 
   return 0;
