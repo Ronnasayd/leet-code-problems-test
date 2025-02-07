@@ -7,6 +7,7 @@
 #include <sstream>   // For std::istringstream
 #include <algorithm> // For std::remove_if
 #include <typeinfo>
+#include <map>
 
 using namespace std;
 
@@ -132,8 +133,8 @@ vector<vector<T>> stdinMatrix(string line)
 
   return v;
 }
-
-void stdoutMatrix(vector<vector<int>> &mat, bool endline = true, bool isLog = false)
+template <typename T>
+void stdoutMatrix(vector<vector<T>> &mat, bool endline = true, bool isLog = false)
 {
   if (isLog)
   {
@@ -189,6 +190,27 @@ void logAll(T x, Args... args)
   }
 
   logAll(args...);
+}
+
+template <typename T, typename U>
+void stdoutMap(const map<T, U> &mp, bool endline = true, bool isLog = false)
+{
+  if (isLog)
+  {
+    cout << "[log]:";
+  }
+  cout << "{";
+
+  for (auto it = mp.begin(); it != mp.end();)
+  {
+    cout << it->first << ":" << it->second;
+    if (++it != mp.cend()) // Avoid trailing comma
+    {
+      cout << ",";
+    }
+  }
+
+  cout << (endline ? "}\n" : "}");
 }
 
 #endif

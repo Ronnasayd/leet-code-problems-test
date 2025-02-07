@@ -52,6 +52,7 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "bitset": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "set": "cpp"
   },
 }

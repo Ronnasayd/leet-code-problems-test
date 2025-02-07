@@ -3,6 +3,16 @@ from decouple import config
 import json
 from time import sleep
 from pprint import pprint
+import argparse
+
+
+parser = argparse.ArgumentParser(
+    prog="generate-testes",
+    description="generate tests from leetcode",
+)
+parser.add_argument("-l", "--language", default="py")
+args = parser.parse_args()
+
 
 cookies = {
     "csrftoken": config("CSRF_TOKEN"),
@@ -38,11 +48,18 @@ headers = {
 with open("online-input.txt") as file:
     data_input = file.read()
     data_input = data_input[: len(data_input) - 1]
-with open("source.py") as file:
-    typed_code = file.read()
+
+if args.language == "cpp":
+    with open("cpp/source.cpp") as file:
+        typed_code = file.read().replace("class", "**class").split("**")[1]
+        lang = "cpp"
+else:
+    with open("source.py") as file:
+        typed_code = file.read().replace("class", "**class").split("**")[1]
+        lang = "python3"
 
 json_data = {
-    "lang": "python3",
+    "lang": lang,
     "question_id": config("QUESTION_ID"),
     "typed_code": typed_code,
     "data_input": data_input,

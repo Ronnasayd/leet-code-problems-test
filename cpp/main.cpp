@@ -11,9 +11,10 @@ int main()
   while (!cin.eof())
   {
     getline(cin, line);
-    auto graph = stdinMatrix<int>(line);
-    auto answer = solution->eventualSafeNodes(graph);
-    stdoutVector(answer);
+    auto nums = stdinVector<int>(line);
+
+    auto answer = solution->maxProfit(nums);
+    stdoutRaw(answer);
   }
 
   return 0;
