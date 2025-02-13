@@ -1,6 +1,6 @@
 from typing import *
 
-
 class Solution:
-    def lengthOfLastWord(self, s: str) -> int:
-        return s.trim().split(" ")[-1]
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        ans = "fl"
+        return ans

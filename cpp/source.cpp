@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <map>
@@ -5,13 +6,14 @@
 #include <deque>
 #include <stack>
 #include <set>
+#include <queue>
 #include "my-std-utils.cpp"
-
 using namespace std;
 
 class Solution {
 public:
-    int lengthOfLastWord(string s) {
-        return 0;
+    string longestCommonPrefix(vector<string>& strs) {
+      string ans = "fl";
+      return ans;
     }
 };

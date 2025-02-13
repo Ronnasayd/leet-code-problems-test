@@ -10,10 +10,10 @@ int main()
   freopen("outputs.txt", "w", stdout);
   while (!cin.eof())
   {
-    getline(cin, line);
-    auto nums = stdinVector<int>(line);
 
-    auto answer = solution->maxProfit(nums);
+    getline(cin, line);
+    auto strs = stdinVector<string>(line);
+    auto answer = solution->longestCommonPrefix(strs);
     stdoutRaw(answer);
   }
 

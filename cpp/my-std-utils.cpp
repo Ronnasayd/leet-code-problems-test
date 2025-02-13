@@ -3,16 +3,18 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 #include <string>
 #include <sstream>   // For std::istringstream
 #include <algorithm> // For std::remove_if
 #include <typeinfo>
 #include <map>
+#include <type_traits>
 
 using namespace std;
 
 template <typename T>
-void stdoutVector(const vector<T> &v, bool endline = true, bool isLog = false)
+void stdoutVector(const T &v, bool endline = true, bool isLog = false)
 {
   if (isLog)
   {
@@ -20,15 +22,15 @@ void stdoutVector(const vector<T> &v, bool endline = true, bool isLog = false)
   }
 
   cout << "[";
-
-  for (size_t i = 0; i < v.size(); ++i)
+  int counter = 0;
+  for (auto &&i : v)
   {
-
-    cout << v[i];
-    if (i < v.size() - 1) // Check if it's not the last element
+    cout << i;
+    if (counter < v.size() - 1) // Check if it's not the last element
     {
       cout << ",";
     }
+    counter++;
   }
   if (endline)
   {
@@ -170,23 +172,42 @@ void logAll()
 {
   cout << "\n";
 }
-template <typename T, typename... Args>
-void logAll(T x, Args... args)
+void printByContext()
 {
-  if constexpr (is_same_v<T, vector<int>> || is_same_v<T, vector<bool>> || is_same_v<T, vector<string>>)
+}
+template <typename T, typename... Args>
+void printByContext(T x, Args... args)
+{
+  if constexpr (is_same_v<T, vector<int>> || is_same_v<T, vector<bool>> || is_same_v<T, vector<string>> || is_same_v<T, set<int>> || is_same_v<T, set<bool>> || is_same_v<T, set<string>>)
   {
-    stdoutVector(x, false, true);
+    stdoutVector(x, false, false);
+  }
+
+  else if constexpr (is_same_v<T, vector<vector<int>>> || is_same_v<T, vector<vector<bool>>> || is_same_v<T, vector<vector<string>>>)
+  {
+    stdoutMatrix(x, false, false);
   }
   else
   {
-    if constexpr (is_same_v<T, vector<vector<int>>> || is_same_v<T, vector<vector<bool>>> || is_same_v<T, vector<vector<string>>>)
-    {
-      stdoutMatrix(x, false, true);
-    }
-    else
-    {
-      stdoutRaw(x, false, true);
-    }
+    stdoutRaw(x, false, false);
+  }
+
+  printByContext(args...);
+}
+template <typename T, typename... Args>
+void logAll(T x, Args... args)
+{
+  if constexpr (is_same_v<T, vector<int>> || is_same_v<T, vector<bool>> || is_same_v<T, vector<string>> || is_same_v<T, set<int>> || is_same_v<T, set<bool>> || is_same_v<T, set<string>>)
+  {
+    stdoutVector(x, false, true);
+  }
+  else if constexpr (is_same_v<T, vector<vector<int>>> || is_same_v<T, vector<vector<bool>>> || is_same_v<T, vector<vector<string>>>)
+  {
+    stdoutMatrix(x, false, true);
+  }
+  else
+  {
+    stdoutRaw(x, false, true);
   }
 
   logAll(args...);
@@ -203,7 +224,8 @@ void stdoutMap(const map<T, U> &mp, bool endline = true, bool isLog = false)
 
   for (auto it = mp.begin(); it != mp.end();)
   {
-    cout << it->first << ":" << it->second;
+    cout << it->first << ":";
+    printByContext(it->second);
     if (++it != mp.cend()) // Avoid trailing comma
     {
       cout << ",";
