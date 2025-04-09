@@ -1,5 +1,6 @@
 from typing import *
 from collections import deque
+from random import randint
 
 
 def tree2list(root: any) -> List:
@@ -131,3 +132,10 @@ def _display_aux(self):
     zipped_lines = zip(left, right)
     lines = [first_line, second_line] + [a + u * " " + b for a, b in zipped_lines]
     return lines, n + m + u, max(p, q) + 2, n + u // 2
+
+
+def generate_random_array(length, lower, upper):
+    ans = [0] * length
+    for i in range(length):
+        ans[i] = randint(lower, upper)
+    return str(ans).replace(" ", "")

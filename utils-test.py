@@ -10,7 +10,8 @@ class TreeNode:
 
 
 if __name__ == "__main__":
-    arr = [18, 2, 22, None, None, None, 63, None, 84, None, None]
-    a = list2tree(arr, TreeNode)
-    b = tree2list(a)
-    display_tree(a)
+    # arr = [18, 2, 22, None, None, None, 63, None, 84, None, None]
+    # a = list2tree(arr, TreeNode)
+    # b = tree2list(a)
+    # display_tree(a)
+    print(generate_random_array(100, 1, 100))

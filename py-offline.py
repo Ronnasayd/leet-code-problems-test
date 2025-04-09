@@ -3,6 +3,9 @@ import json
 from time import time
 import os, psutil
 from utils import *
+import sys
+
+args = sys.argv
 
 inputs = []
 outputs = []
@@ -14,7 +17,7 @@ process_output = []
 # process_input = [[[0], list2tree, TreeNode]]
 # process_output = [[tree2list]]
 
-with open("offline-input.txt") as file:
+with open("offline-input.txt", encoding="utf-8") as file:
     data = file.read()
     data = data.replace(", ", ";")
     lines = data.split("\n")
@@ -63,3 +66,22 @@ for inp, out in zip(inputs, outputs):
 total_memory = psutil.Process(os.getpid()).memory_info().rss / 1024**2
 print(f"⌛ Total time: {total_time*1000:.5f} ms")
 print(f"💾 Memory usage: {total_memory} MB")
+
+if len(args) > 1 and args[1] == "-r":
+    with open("offline-input.txt", "w", encoding="utf-8") as file:
+        for inp, out in zip(inputs, outputs):
+            s = "Input: "
+            for i in inp:
+                s += f"{i};"
+            s += f"\nOutput: {out}\n\n"
+            s = s.replace(" ", "", -1).replace(";\n", "\n")
+            s = s.replace("'", '"')
+            file.write(s)
+    s = ""
+    with open("online-input.txt", "w", encoding="utf-8") as file:
+        for inp in inputs:
+            for i in inp:
+                s += f"{i}\n"
+        s = s.replace(" ", "", -1)
+        s = s.replace("'", '"')
+        file.write(s)
